@@ -1,0 +1,14 @@
+version: '3.9'
+services:
+    thing1:
+        build: ./thing1
+        container_name: thing1
+        links:
+        - thing2:thing1
+        ports:
+        - 7776:7776
+    thing2:
+        build: ./thing2
+        container_name: thing2
+        ports:
+        - 7777:7777
