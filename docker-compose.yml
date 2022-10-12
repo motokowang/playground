@@ -12,3 +12,16 @@ services:
         container_name: thing2
         ports:
         - 7777:7777
+    bouncycastle:
+        image: mysql:latest
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: 'yet_another_leaked_credential'
+        ports:
+        - 3306:3306
+        expose:
+        - 3306
+        volumes:
+        - bouncycastle:/var/lib/mysql
+volumes:
+    bouncycastle:
