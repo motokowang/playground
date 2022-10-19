@@ -30,8 +30,6 @@ GET /api/student/<int:student_id>
 @api_blueprint.route('/student/<int:student_id>', methods=['GET', 'POST'], strict_slashes=False)
 @cross_origin()
 def route_student(student_id: int):
-#    engine = create_engine('mysql+pymysql://root:yet_another_leaked_credential@bouncycastle:3306/playground',
-#                            echo=True)
     df = pd.read_sql_query('select * from marks', thing1.thing1.engine)
     return df[df.student_id == student_id].to_json()
 
@@ -57,11 +55,9 @@ def route_class_record():
     if not (student_id and assignment_id and marks):
         return 'Missing stuff'
     
-    engine = create_engine('mysql+pymysql://root:yet_another_leaked_credential@bouncycastle:3306/playground',
-                           echo=True)
-    with engine.connect() as コネ:
-        メタ = MetaData(engine)
-        marks_tbl = Table('marks', メタ, autoload=True, autoload_with=engine)
+    with thing1.thing1.engine.connect() as コネ:
+        メタ = MetaData(thing1.thing1.engine)
+        marks_tbl = Table('marks', メタ, autoload=True, autoload_with=thing1.thing1.engine)
         
         sql = marks_tbl.insert().values(student_id=student_id, assignment_id=assignment_id, marks=marks)
         コネ.execute(sql)

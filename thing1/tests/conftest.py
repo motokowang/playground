@@ -36,6 +36,4 @@ def runner(app):
 
 @pytest.fixture(scope='session')
 def connection():
-    #thing1.thing1.engine = create_engine('mysql+pymysql://root:yet_another_leaked_credential@127.0.0.1:3306/playground',
-    #                        echo=True)
     return thing1.thing1.engine.connect()
