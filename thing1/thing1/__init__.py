@@ -24,21 +24,24 @@ def create_app(config_name='docker'):
     1. This is our Flask app object for our app factory
     '''
     app = Flask(__name__)
-    global engine
     
-    # app.config.from_object(app_config[config_name])
-    #app.config.from_pyfile('./config.py', silent=False)
+    
+    '''
+    2. Engine
+    '''
+    global engine
     
     if config_name == 'docker':
         app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:yet_another_leaked_credential@bouncycastle:3306/playground'
     elif config_name == 'pytest':
         app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:yet_another_leaked_credential@127.0.0.1:3306/playground'
     else:
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:yet_another_leaked_credential@bouncycastle:3306/playground'
+        raise Exception("Invalid config_name specified for create_app(). Valid config_names are 'docker' and 'pytest'")
     engine = init_engine(app.config['SQLALCHEMY_DATABASE_URI'])
     
+    
     '''
-    2. For each BLUEPRINT, we'll import and then register it to our app.
+    3. For each BLUEPRINT, we'll import and then register it to our app.
     '''
     app.register_blueprint(api_blueprint, url_prefix='/api')
     
