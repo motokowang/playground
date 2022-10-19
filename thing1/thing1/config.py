@@ -1,0 +1,1 @@
+SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:yet_another_leaked_credential@bouncycastle:3306/playground'
